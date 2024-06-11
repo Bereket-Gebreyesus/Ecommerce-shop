@@ -15,7 +15,11 @@ Loading and error handling states for API requests.
 Add a favorite option for products to allow users to mark and view their favorite products.
 
 ## Technologies Used
+
 React
+
 React Router DOM
+
 Fetch API
+
 CSS for styling
