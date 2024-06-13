@@ -1,19 +1,21 @@
-import React from 'react';
 
-function ProductList({ products, selectedCategory }) {
-  // Filter products based on the selected category if it exists
-  const filteredProducts = selectedCategory ? products.filter(product => product.categoryIds.includes(selectedCategory)) : products;
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
+const ProductList = ({ products }) => {
   return (
-    <div className="product-list">
-      {filteredProducts.map(product => (
-        <div key={product.id} className="product-item">
-          <img src={product.image} alt={product.name} className="product-image" />
-          <p>{product.title}</p>
-        </div>
+    <ul className="product-list">
+      {products.map(product => (
+        <li className="product-item" key={product.id}>
+          <Link to={`/product/${product.id}`} className="product-link"> 
+            <div className="product">
+              <img src={product.image} className="product-image" alt={product.title}></img>
+              <span className="product-title" title={product.title}>{product.title}</span>
+            </div>
+          </Link>
+        </li>
       ))}
-    </div>
+    </ul>
   );
-}
+};
 
 export default ProductList;
