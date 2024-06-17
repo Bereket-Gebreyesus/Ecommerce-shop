@@ -23,3 +23,6 @@ React Router DOM
 Fetch API
 
 CSS for styling
+
+## Link of the page
+https://66686c4118d1df22086c226d--delightful-sundae-15e19c.netlify.app/
