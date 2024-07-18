@@ -1,11 +1,15 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useFavourites } from '../context/FavouritesContext';
+import heartRegular from '../assets/heart-regular.svg';
+import heartSolid from '../assets/heart-solid.svg';
 
 const ProductDetail = () => {
-  const { id } = useParams(); 
-  const [product, setProduct] = useState(null); 
-  const [loading, setLoading] = useState(true); 
-  const [error, setError] = useState(null); 
+  const { id } = useParams();
+  const { toggleFavourite, isInFavourites } = useFavourites();
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -41,15 +45,32 @@ const ProductDetail = () => {
   return (
     <div className="product-detail">
       <div className="title-container">
-          <h2>{product.title}</h2>
+        <h2>{product.title}</h2>
       </div>
       <div className="product-detail-information">
-         <div className="product-detail-image"> 
-            <div className="product-image-container">
-            <img className="product's-image" src={product.image} alt={product.title} />
+        <div className="product-detail-image">
+          <div className="product-image-container">
+            <img className="product-image" src={product.image} alt={product.title} />
+            <div
+              className="product-image-favourite-container"
+              onClick={() => toggleFavourite(product.id)}
+              role="button"
+              tabIndex={0}
+              onKeyPress={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  toggleFavourite(product.id);
+                }
+              }}
+            >
+              <img
+                src={isInFavourites(product.id) ? heartSolid : heartRegular}
+                alt="Favourite"
+                className="favourite-icon"
+              />
             </div>
-         </div>
-         <p>{product.description}</p>
+          </div>
+        </div>
+        <p>{product.description}</p>
       </div>
     </div>
   );
